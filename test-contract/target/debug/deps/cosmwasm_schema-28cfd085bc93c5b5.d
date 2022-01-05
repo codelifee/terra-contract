@@ -1,0 +1,10 @@
+/Users/suminjung/Desktop/Programming/Boomco/auroralist/terra_contract/test-contract/target/debug/deps/cosmwasm_schema-28cfd085bc93c5b5.rmeta: /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/lib.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/casing.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/export.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/remove.rs
+
+/Users/suminjung/Desktop/Programming/Boomco/auroralist/terra_contract/test-contract/target/debug/deps/libcosmwasm_schema-28cfd085bc93c5b5.rlib: /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/lib.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/casing.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/export.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/remove.rs
+
+/Users/suminjung/Desktop/Programming/Boomco/auroralist/terra_contract/test-contract/target/debug/deps/cosmwasm_schema-28cfd085bc93c5b5.d: /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/lib.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/casing.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/export.rs /Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/remove.rs
+
+/Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/lib.rs:
+/Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/casing.rs:
+/Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/export.rs:
+/Users/suminjung/.cargo/registry/src/github.com-1ecc6299db9ec823/cosmwasm-schema-0.10.1/src/remove.rs:
