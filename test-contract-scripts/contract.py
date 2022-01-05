@@ -42,8 +42,6 @@ def instantiate_contract(code_id: str, init_msg, sequence) -> str:
     #     "instantiate_contract"
     # ]["contract_address"][0]
 
-    print(contract_address)
-
     return contract_address
 
 # we need to increase the sequence cuz it runs too fast. the sequence overlaps
@@ -51,4 +49,4 @@ sequence = terra.auth.account_info(deployer.key.acc_address).sequence
 
 code_id = store_contract("cw20_base", sequence)
 contract_address =instantiate_contract(code_id, {"name":"real_token","symbol":"SYMBOL","decimals": 3,"initial_balances":[{"address":"terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v","amount":"10000"},{"address":"terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp","amount":"10000"}]}, sequence+1)
-# print(terra.wasm.contract_query(contract_address, {"balance":{"address": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v"}}))
+print(terra.wasm.contract_query(contract_address, {"balance":{"address": "terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"}}))
