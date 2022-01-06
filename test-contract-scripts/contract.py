@@ -4,7 +4,6 @@ from terra_sdk.client.localterra import LocalTerra
 from terra_sdk.util.contract import read_file_as_b64, get_code_id, get_contract_address
 from terra_sdk.core.auth import StdFee
 from terra_sdk.core.wasm import MsgStoreCode, MsgInstantiateContract, MsgExecuteContract
-
 from terra_sdk.key.mnemonic import MnemonicKey
 from terra_sdk.client.lcd import LCDClient
 
@@ -39,7 +38,9 @@ def instantiate_contract(code_id: str, init_msg, sequence) -> str:
     tx = deployer.create_and_sign_tx(
         msgs=[instantiate], fee=StdFee(400000000, "10000000uluna"), sequence=sequence
     )
+
     result = terra.tx.broadcast(tx)
+
     contract_address = get_contract_address(result)
     # contract_address = result.logs[0].events_by_type[
     #     "instantiate_contract"
@@ -58,23 +59,24 @@ def execute_contract(
         coins=coins
     )
 
-    print(f"ddd {sequence}")
-
     tx = sender.create_and_sign_tx(
         msgs=[execuete], fee=StdFee(400000000, "10000000uluna"), sequence=sequence
     )
 
-    print(f"ddd {tx}")
+    print(f"sequence {sequence}")
+    print(f"coins {coins}")
 
     result = terra.tx.broadcast(tx)
 
+    print(f"tx {tx}")
+    print(f"result {result}")
 
     return result
 
 # we need to increase the sequence cuz it runs too fast. the sequence overlaps
 sequence = terra.auth.account_info(deployer.key.acc_address).sequence
 
-token_code_id = store_contract("cw20_base", sequence)
+token_code_id = store_contract("terraswap_token", sequence)
 # contract_address =instantiate_contract(token_code_id, {"name":"aurora","symbol":"SYMBOL","decimals": 3,"initial_balances":[{"address":"terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v","amount":"10000"},{"address":"terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp","amount":"10000"}]}, sequence+1)
 # print(terra.wasm.contract_query(contract_address, {"balance":{"address": "terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"}}))
 pair_code_id = store_contract("terraswap_pair", sequence+1)
@@ -118,3 +120,40 @@ result = execute_contract(
 
 token_pair = result.logs[0].events_by_type["from_contract"]["pair_contract_addr"][0]
 print(f"token pair contract: {token_pair}")
+
+# provide liquidity
+execute_contract(
+    deployer,
+    aurora_token,
+    {"increase_allowance": {"spender": token_pair, "amount": "10000000"}},
+    sequence+6
+)
+
+execute_contract(
+    deployer,
+    token_pair,
+    {
+     "provide_liquidity": {
+         "assets": [
+             {
+                 "info": {
+                     "token": {
+                         "contract_addr": aurora_token
+                     }
+                 },
+                 "amount": "1000000"
+             },
+             {"info": {"native_token": {"denom": "uluna"}}, "amount": "1000000"},
+         ]
+     },
+    },
+    sequence+7,
+    "1000000uluna",
+)
+
+print(
+    "Token pair's balance of aurora_token: ",
+    terra.wasm.contract_query(aurora_token, {"balance": {"address": token_pair}})[
+        "balance"
+    ]
+)
