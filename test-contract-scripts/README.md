@@ -1,4 +1,4 @@
-##terra.py verison
+##terra_sdk verison
 1.0.0
 
 ##successful tx of liquidity pool

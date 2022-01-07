@@ -63,13 +63,7 @@ def execute_contract(
         msgs=[execuete], fee=StdFee(400000000, "10000000uluna"), sequence=sequence
     )
 
-    print(f"sequence {sequence}")
-    print(f"coins {coins}")
-
     result = terra.tx.broadcast(tx)
-
-    print(f"tx {tx}")
-    print(f"result {result}")
 
     return result
 
@@ -94,7 +88,7 @@ aurora_token = instantiate_contract(
     token_code_id,
     {
         "name": "Aurora Token",
-        "symbol": "NORM",
+        "symbol": "Aurora",
         "decimals": 6,
         "initial_balances": [
             {"address": deployer.key.acc_address, "amount": "10000000"}
@@ -119,7 +113,6 @@ result = execute_contract(
 )
 
 token_pair = result.logs[0].events_by_type["from_contract"]["pair_contract_addr"][0]
-print(f"token pair contract: {token_pair}")
 
 # provide liquidity
 execute_contract(
@@ -150,6 +143,10 @@ execute_contract(
     sequence+7,
     "1000000uluna",
 )
+
+print(f"deployer {deployer.key.acc_address}")
+print(f"aurora {aurora_token}")
+print(f"token pair {token_pair}")
 
 print(
     "Token pair's balance of aurora_token: ",
