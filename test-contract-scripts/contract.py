@@ -70,11 +70,11 @@ def execute_contract(
 # we need to increase the sequence cuz it runs too fast. the sequence overlaps
 sequence = terra.auth.account_info(deployer.key.acc_address).sequence
 
-token_code_id = store_contract("terraswap_token", sequence)
+token_code_id = store_contract("astroport_lbp_token", sequence)
 # contract_address =instantiate_contract(token_code_id, {"name":"aurora","symbol":"SYMBOL","decimals": 3,"initial_balances":[{"address":"terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v","amount":"10000"},{"address":"terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp","amount":"10000"}]}, sequence+1)
 # print(terra.wasm.contract_query(contract_address, {"balance":{"address": "terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"}}))
-pair_code_id = store_contract("terraswap_pair", sequence+1)
-factory_code_id = store_contract("terraswap_factory", sequence+2)
+pair_code_id = store_contract("astroport_lbp_pair", sequence+1)
+factory_code_id = store_contract("astroport_lbp_factory", sequence+2)
 
 # create normal ts factory
 factory = instantiate_contract(
@@ -105,7 +105,7 @@ result = execute_contract(
         "create_pair": {
             "asset_infos": [
                 {"token": {"contract_addr": aurora_token}},
-                {"native_token": {"denom": "uluna"}},
+                {"native_token": {"denom": "uusd"}},
             ]
         }
     },
