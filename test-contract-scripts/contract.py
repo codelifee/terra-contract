@@ -1,11 +1,11 @@
 from dis import code_info
 
-from terra_sdk.client.localterra import LocalTerra
-from terra_sdk.util.contract import read_file_as_b64, get_code_id, get_contract_address
-from terra_sdk.core.auth import StdFee
-from terra_sdk.core.wasm import MsgStoreCode, MsgInstantiateContract, MsgExecuteContract
-from terra_sdk.key.mnemonic import MnemonicKey
-from terra_sdk.client.lcd import LCDClient
+from terra.client.localterra import LocalTerra
+from terra.util.contract import read_file_as_b64, get_code_id, get_contract_address
+from terra.core.auth import StdFee
+from terra.core.wasm import MsgStoreCode, MsgInstantiateContract, MsgExecuteContract
+from terra.key.mnemonic import MnemonicKey
+from terra.client.lcd import LCDClient
 
 terra = LCDClient("https://bombay-lcd.terra.dev", "bombay-12")
 
