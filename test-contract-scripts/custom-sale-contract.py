@@ -6,6 +6,7 @@ from terra_sdk.core.wasm import MsgStoreCode, MsgInstantiateContract, MsgExecute
 
 terra = LocalTerra()
 deployer = terra.wallets["test2"]
+customer = terra.wallets["test3"]
 
 # libraries
 def add_decimal_point(src:str, decimal = 6) -> str:
@@ -49,7 +50,7 @@ def instantiate_contract(code_id: str, init_msg, sequence) -> str:
 
 
 def execute_contract(
-        sender, contract_addr: str, execute_msg, sequence, coins=None
+        sender, contract_addr: str, execute_msg, sequence, coins=None, account_number=None
 ):
     execuete = MsgExecuteContract(
         sender=sender.key.acc_address,
@@ -59,7 +60,7 @@ def execute_contract(
     )
 
     tx = sender.create_and_sign_tx(
-        msgs=[execuete], fee=StdFee(400000000, "10000000uluna"), sequence=sequence
+        msgs=[execuete], fee=StdFee(400000000, "10000000uluna"), sequence=sequence, account_number=account_number
     )
 
     result = terra.tx.broadcast(tx)
@@ -70,6 +71,7 @@ def execute_contract(
 
 
 sequence = terra.auth.account_info(deployer.key.acc_address).sequence
+customer_sequence = terra.auth.account_info(customer.key.acc_address).sequence
 
 token_code_id = store_contract("astroport_lbp_token", sequence)
 sale_code_id = store_contract("cosmwasm_16", sequence+1)
@@ -123,7 +125,7 @@ execute_contract(
 
 # Buy cw20 coin
 execute_contract(
-    deployer,
+    customer,
     sale_contract,
     {
         "buy":{
@@ -131,6 +133,6 @@ execute_contract(
             "price": "1",
         }
     },
-    sequence+6,
+    customer_sequence,
     "2uusd"
 )
